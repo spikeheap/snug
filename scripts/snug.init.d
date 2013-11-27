@@ -1,4 +1,13 @@
-#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          snug
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: snug
+# Description:       snug heating controller
+### END INIT INFO
+
 # Init script courtesy of http://blog.rueedlinger.ch/2013/03/raspberry-pi-and-nodejs-basic-setup/
 #
 # Add this file to your startup directory using the following command:
