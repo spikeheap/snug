@@ -20,7 +20,7 @@
 #
 
 NODE=/opt/node/bin/node
-SERVER_JS_FILE=/usr/local/snug/app/server.js
+SERVER_JS_FILE=/usr/local/snug/app/app.js
 USER=snug
 OUT=/dev/null #If you're not using IPE and want to log, just set your log file path here.
 
@@ -28,7 +28,9 @@ case "$1" in
 
 start)
 	echo "starting node: $NODE $SERVER_JS_FILE"
-	sudo -u $USER $NODE $SERVER_JS_FILE > $OUT 2>$OUT &
+	#sudo -u $USER $NODE $SERVER_JS_FILE > $OUT 2>$OUT &
+	# DEV MODE ONLY
+	sudo -u $USER $NODE $SERVER_JS_FILE &
 	;;
 
 stop)
