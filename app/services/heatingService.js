@@ -1,12 +1,13 @@
-var wiringpi = require( 'node-wiringpi' );
+var wiringpi = require( 'wiring-pi' );
 
 var RELAY_A = 24
 var RELAY_B = 25
 
 exports.getCurrentState = function(){
-  console.log( "you have " + wpi.num_pins() + " GPIO pins." );
+
+  wiringpi.setup('gpio');
 
   var selectedRelay = RELAY_A
-  var relayState = wiringpi.digital_read(selectedRelay)
-  return "ON!";
+  var relayState = wiringpi.digitalRead(selectedRelay)
+  return relayState;
 };
