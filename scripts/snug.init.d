@@ -5,6 +5,10 @@
 #
 #   $ ln -s /usr/local/snug/scripts/snug.init.d /etc/init.d/snug
 #
+# and ensure it is executable with
+#
+#   $ chmod +x /usr/local/snug/scripts/snug.init.d
+#
 
 NODE=/opt/node/bin/node
 SERVER_JS_FILE=/usr/local/snug/app/server.js
