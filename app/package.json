@@ -9,6 +9,8 @@
     "express": "3.4.4",
     "jade": "*",
     "less-middleware": "*",
-    "helmet": "0.1.2"
+    "helmet": "0.1.2",
+    "redis": "*",
+	"node-wiringpi": "0.0.1"
   }
 }

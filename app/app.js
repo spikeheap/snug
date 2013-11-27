@@ -9,6 +9,10 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
+// set up Redis data structure server
+var redis = require('redis');
+var db = redis.createClient();
+
 var app = express();
 
 // set up security middleware
