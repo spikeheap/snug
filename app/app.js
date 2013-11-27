@@ -11,6 +11,10 @@ var path = require('path');
 
 var app = express();
 
+// set up security middleware
+var helmet = require('helmet');
+helmet.defaults(app);
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
