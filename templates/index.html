@@ -1,0 +1,85 @@
+<!doctype html>
+<head>
+	<title>Hello from Flask</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 col-xs-offset-3">
+			<h2>Give me heat, damnit!</h2>
+				<button id="switchOn" onclick="javascript:switchOnForFifteen();" class="btn btn-block btn-primary">
+			    	<h1><i class="fa fa-fire"></i> 15 mins</h1>
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>Regular hotness</h2>
+				<table class="table table-condensed table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Enabled</th>
+							<th>When</th>
+							<th>Start at</th>
+							<th>Duration</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for job in jobs %}
+							<tr>
+								<td>{{ '√' if job.enabled else 'x' }}</td>
+								<td>{{ job.days_active_as_str() }}</td>
+								<td>{{ job.start_time }}</td>
+								<td>{{ job.duration }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+ass="col-xs-6">
+				</label>
+				<button id="switchOff" onclick="javascript:switchItOff();" class="btn btn-block btn-primary">
+					<h1><i class="fa fa-fire-extinguisher"></i></h1>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>But if you don't like that kind of automation</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<button id="switchOn" onclick="javascript:switchItOn();" class="btn btn-block btn-danger">
+			    	<h1><i class="fa fa-fire"></i></h1>
+				</button>
+			</div>
+			<div clxs-12">
+				<p><em>Make sure you turn it off later!</em></p>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.js') }}"/>
+	<script src="{{ url_for('static', filename='vendor/bootstrap/dist/js/bootstrap.js') }}"/>
+	<script>
+	switchItOn = function (){
+		console.log("yooohoo");
+	}
+
+	$('#switchOn').on('click', function () {
+		console.log("yooohoo");
+		    var $btn = $(this).button('loading');
+		    // business logic...
+		    //$btn.button('reset')
+		  })
+	</script>
+</body>
