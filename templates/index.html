@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Heateriser+++</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}"/>
@@ -8,14 +9,14 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6 col-xs-offset-3">
+			<div class="col-md-6 col-md-offset-3">
 			<h2>Give me heat, damnit!</h2>
 				<button id="switchOn15" class="btn btn-block btn-primary">
 			    	<h1><i class="fa fa-fire"></i> 15 mins</h1>
 				</button>
 			</div>
 		</div>
-
+<!--
 		<div class="row">
 			<div class="col-xs-12">
 				<h2>Regular hotness</h2>
@@ -41,20 +42,20 @@
 				</table>
 			</div>
 		</div>
-
+-->
 		<div class="row">
 			<div class="col-xs-12">
 				<h2>But if you don't like that kind of automation</h2>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-md-6">
 				<button id="switchOn" class="btn btn-block btn-danger">
 			    	<h1><i class="fa fa-fire"></i></h1>
 				</button>
 			</div>
 		
-			<div class="col-xs-6">
+			<div class="col-md-6">
 					<button id="switchOff" class="btn btn-block btn-primary">
 						<h1><i class="fa fa-fire-extinguisher"></i></h1>
 					</button>

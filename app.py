@@ -1,9 +1,12 @@
 #! /usr/bin/env python3 
+import datetime
 from flask import Flask
 from flask import jsonify
 from flask import render_template
 from flask import request
+import logging
 import numpy as np
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from TempSensor import TempSensor
 from RelaySensor import RelaySensor
@@ -37,6 +40,9 @@ class Job:
     		 pretty_days = np.ma.masked_where( np.array(self.days_active), np.array(self.days) ).compressed() 
     		 return ', '.join( pretty_days )
 
+logging.basicConfig()
+scheduler = BackgroundScheduler()
+scheduler.start()
 
 app = Flask(__name__)
 
@@ -60,13 +66,20 @@ def index():
 	jobs = [ Job([False, True, True, True, True, True, False], '15:30', 35), Job([True, True, True, True, True, True, True], '06:30', 30), Job([False, True, False, False, True, False, False], '08:30', 35), Job([True, False, False, False, False, False, True], '20:30', 180) ]
 	return render_template( 'index.html', heating_status=heating_status, jobs=jobs, error=error )
 
+def switchOff():
+    print("Switching off because of scheduler")
+    controllers[0].set(0)
+
 @app.route('/api/switch', methods=['GET'])
 def switch():
     if 'state' in request.args:
         if request.args['state'] == 'on':
             if 'duration' in request.args:
-                duration = request.args['duration']
-                print(duration)
+                duration = int( request.args['duration'] )
+		now = datetime.datetime.now()
+		offTime = now + datetime.timedelta(minutes=duration)
+                scheduler.add_job(switchOff, 'date', run_date=offTime)
+                print("Switching off at %s" % offTime)
             # TODO wire into heating on
             controllers[0].set(1)
             print('switching on')
