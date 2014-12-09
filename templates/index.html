@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-	<title>Hello from Flask</title>
+	<title>Heateriser+++</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-xs-6 col-xs-offset-3">
 			<h2>Give me heat, damnit!</h2>
-				<button id="switchOn" onclick="javascript:switchOnForFifteen();" class="btn btn-block btn-primary">
+				<button id="switchOn15" class="btn btn-block btn-primary">
 			    	<h1><i class="fa fa-fire"></i> 15 mins</h1>
 				</button>
 			</div>
@@ -41,15 +41,7 @@
 				</table>
 			</div>
 		</div>
-ass="col-xs-6">
-				</label>
-				<button id="switchOff" onclick="javascript:switchItOff();" class="btn btn-block btn-primary">
-					<h1><i class="fa fa-fire-extinguisher"></i></h1>
-				</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-
+
 		<div class="row">
 			<div class="col-xs-12">
 				<h2>But if you don't like that kind of automation</h2>
@@ -57,29 +49,51 @@ ass="col-xs-6">
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
-				<button id="switchOn" onclick="javascript:switchItOn();" class="btn btn-block btn-danger">
+				<button id="switchOn" class="btn btn-block btn-danger">
 			    	<h1><i class="fa fa-fire"></i></h1>
 				</button>
 			</div>
-			<div clxs-12">
+		
+			<div class="col-xs-6">
+					<button id="switchOff" class="btn btn-block btn-primary">
+						<h1><i class="fa fa-fire-extinguisher"></i></h1>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
 				<p><em>Make sure you turn it off later!</em></p>
 			</div>
 		</div>
 	</div>
 
 
-	<script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.js') }}"/>
-	<script src="{{ url_for('static', filename='vendor/bootstrap/dist/js/bootstrap.js') }}"/>
+	<script src="{{ url_for('static', filename='vendor/jquery/dist/jquery.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
 	<script>
-	switchItOn = function (){
-		console.log("yooohoo");
-	}
 
-	$('#switchOn').on('click', function () {
-		console.log("yooohoo");
-		    var $btn = $(this).button('loading');
-		    // business logic...
-		    //$btn.button('reset')
-		  })
+		$('#switchOn').on('click', function () {
+			$.get( "/api/switch", { state: 'on' })
+				.done(function() {
+					$('#switchOff').prop('disabled', false);
+					$('#switchOn').prop('disabled', true);
+				});
+		});
+
+		$('#switchOn15').on('click', function () {
+			$.get( "/api/switch", { state: 'on', duration: 15 })
+				.done(function() {
+					$(this).prop('disabled', true)
+				})
+		});
+
+		$('#switchOff').on('click', function () {
+			$.get( "/api/switch", { state: 'off' })
+				.done(function() {
+					$('#switchOff').prop('disabled', true);
+					$('#switchOn').prop('disabled', false);
+				});
+		});
 	</script>
 </body>

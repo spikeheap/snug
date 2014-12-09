@@ -1,7 +1,15 @@
+#! /usr/bin/env python3 
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 from flask import request
 import numpy as np
+
+from TempSensor import TempSensor
+from RelaySensor import RelaySensor
+from RelayController import RelayController
+
+from MockTempSensor import MockTempSensor
 
 class Job:
     """A simple scheduled job"""
@@ -28,7 +36,19 @@ class Job:
     	else:
     		 pretty_days = np.ma.masked_where( np.array(self.days_active), np.array(self.days) ).compressed() 
     		 return ', '.join( pretty_days )
+
+
 app = Flask(__name__)
+
+sensors = [
+#  MockTempSensor(),
+    TempSensor(),
+    RelaySensor(),
+]
+
+controllers = [
+    RelayController(),
+]
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -40,9 +60,27 @@ def index():
 	jobs = [ Job([False, True, True, True, True, True, False], '15:30', 35), Job([True, True, True, True, True, True, True], '06:30', 30), Job([False, True, False, False, True, False, False], '08:30', 35), Job([True, False, False, False, False, False, True], '20:30', 180) ]
 	return render_template( 'index.html', heating_status=heating_status, jobs=jobs, error=error )
 
+@app.route('/api/switch', methods=['GET'])
+def switch():
+    if 'state' in request.args:
+        if request.args['state'] == 'on':
+            if 'duration' in request.args:
+                duration = request.args['duration']
+                print(duration)
+            # TODO wire into heating on
+            controllers[0].set(1)
+            print('switching on')
+        else:
+            # TODO wire into heating off
+            controllers[0].set(0)
+            print('switching off')
+        response = jsonify({'success': True})
+        response.status_code = 200
+    else:
+        response = jsonify({'success': False, 'errors': ["No state provided"]})
+        response.status_code = 500
+    return response
+
 if __name__ == "__main__":
-	app.debug = True # Auto-reload & messaging
-	app.run(host='0.0.0.0')
-
-
-
+    app.debug = True # Auto-reload & messaging
+    app.run(host='0.0.0.0')
